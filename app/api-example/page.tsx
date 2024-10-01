@@ -1,7 +1,7 @@
 "use client"
 import CustomLink from "@/components/custom-link"
 import { useCallback, useEffect, useState } from "react"
-import { AuthStatus, EmbeddedWallet} from "@prex0/uikit/wallet"
+import { AuthStatus, EmbeddedWallet, LogoutWalletButton} from "@prex0/uikit/wallet"
 import { Address } from "@prex0/uikit/identity"
 import { PrexUIKitProvider, usePrex} from "@prex0/uikit"
 import { getCsrfToken, getSession } from "next-auth/react"
@@ -34,7 +34,6 @@ export default function Page() {
 function WalletPage() {
   const [data, setData] = useState()
   const [email, setEmail] = useState("")
-  const { authenticate } = usePrex()
 
   const getIDToken = useCallback(async () => {
     const response = await fetch("/api/token", {
@@ -45,35 +44,6 @@ function WalletPage() {
 
     return json.data as string
   }, [])
-  
-
-  const authByPrex = useCallback(async () => {
-    const csrfToken = await getCsrfToken()
-    const {auth_session_id, options} = await generateOptions();
-    const response = await authenticate(options)
-    const authResponse = await fetch("/api/auth/callback/credentials", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: new URLSearchParams({
-        password: JSON.stringify({
-          auth_session_id,
-          response,
-          user_handle: response.response.userHandle
-        }),
-        csrfToken,
-        callbackUrl: "/",
-        json: 'true',
-      }),
-
-    });
-
-    const json = await authResponse.json()
-
-    console.log(json);
-
-  }, [getCsrfToken, authenticate])
 
   useEffect(() => {
     ;(async () => {
@@ -114,16 +84,79 @@ function WalletPage() {
         <AuthStatus
           getIDTokenHandler={getIDToken}
           loginComponent={
-            <div>
-              <button onClick={getIDToken}>Get ID Token</button>
-            </div>
+            <LoginComponent />
           }>
           <EmbeddedWallet title="Embedded Wallet" username={email}>
+            <div>
             <Address />
+              <LogoutWalletButton buttonText="Logout" />
+            </div>
           </EmbeddedWallet>
         </AuthStatus>
-        <button onClick={authByPrex}>Auth by Prex</button>
 
     </div>
   )
+}
+
+function LoginComponent({error}: {error?: Error}) {
+  const { authenticate } = usePrex()
+  const [email, setEmail] = useState("")
+
+  const authByResend = useCallback(async () => {
+    const csrfToken = await getCsrfToken()
+
+    const authResponse = await fetch("/api/auth/callback/resend", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        email,
+        csrfToken,
+        callbackUrl: "/",
+        json: 'true',
+      }),
+    });
+
+    const json = await authResponse.json()
+
+    console.log(json);
+
+  }, [authenticate, getCsrfToken])
+
+  const authByPrex = useCallback(async () => {
+    const csrfToken = await getCsrfToken()
+    const {auth_session_id, options} = await generateOptions();
+    const response = await authenticate(options)
+    const authResponse = await fetch("/api/auth/callback/credentials", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        password: JSON.stringify({
+          auth_session_id,
+          response,
+          user_handle: response.response.userHandle
+        }),
+        csrfToken,
+        callbackUrl: "/",
+        json: 'true',
+      }),
+    });
+
+    const json = await authResponse.json()
+
+    console.log(json);
+
+  }, [getCsrfToken, authenticate])
+
+  return <div>
+    <div>
+      {error && <p>Error: {error.message}</p>}
+    </div>
+    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+    <button onClick={authByResend}>Sign in with Email</button>
+    <button onClick={authByPrex}>Auth by Prex</button>
+  </div>
 }
