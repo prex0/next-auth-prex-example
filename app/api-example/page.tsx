@@ -6,6 +6,7 @@ import { Address } from "@prex0/uikit/identity"
 import { PrexUIKitProvider, usePrex} from "@prex0/uikit"
 import { getCsrfToken, getSession } from "next-auth/react"
 import "@prex0/uikit/styles.css"
+import {cn, pressable, text, color, placeholder} from "@prex0/uikit/styles"
 
 async function generateOptions() {
   const response = await fetch("/api/options", {
@@ -122,7 +123,7 @@ function LoginComponent({error}: {error?: Error}) {
 
     console.log(json);
 
-  }, [authenticate, getCsrfToken])
+  }, [authenticate, email])
 
   const authByPrex = useCallback(async () => {
     const csrfToken = await getCsrfToken()
@@ -151,12 +152,23 @@ function LoginComponent({error}: {error?: Error}) {
 
   }, [getCsrfToken, authenticate])
 
-  return <div>
+  return <div className="flex flex-col gap-4">
     <div>
       {error && <p>Error: {error.message}</p>}
     </div>
-    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-    <button onClick={authByResend}>Sign in with Email</button>
-    <button onClick={authByPrex}>Auth by Prex</button>
+
+    <input
+      className={cn(
+        pressable.alternate,
+        color.foreground,
+        placeholder.default,
+        'w-full rounded-xl py-2 pr-5 pl-12 outline-none'
+      )}
+      type="email"
+      value={email}
+      onChange={(e) => setEmail(e.target.value)}
+    />
+    <button onClick={authByResend} className={cn(pressable.primary, text.headline, 'text-white', 'rounded-xl', 'p-2')}>Sign in with Email</button>
+    <button onClick={authByPrex} className={cn('underline')}>Auth by Prex</button>
   </div>
 }
