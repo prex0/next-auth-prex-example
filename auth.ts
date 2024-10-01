@@ -18,9 +18,11 @@ const storage = createStorage({
     : memoryDriver(),
 })
 
+const storageAdaptor = UnstorageAdapter(storage)
+
 const config = {
   theme: { logo: "https://authjs.dev/img/logo-sm.png" },
-  adapter: UnstorageAdapter(storage),
+  adapter: storageAdaptor,
   providers: [
     Resend({
       from: process.env.EMAIL_FROM
@@ -38,7 +40,6 @@ const config = {
           headers: {
             "x-rule": process.env.POLICY_ID ?? "",
             "Content-Type": "application/json",
-
           }
         })
 
@@ -54,9 +55,13 @@ const config = {
           return null;
         }
 
-        return {
-          id: result.wallet.sub,
+        if(!storageAdaptor.getUser) {
+          return null
         }
+
+        const user = await storageAdaptor.getUser(result.wallet.sub)
+
+        return user
       }
     }),
   ],
@@ -68,7 +73,7 @@ const config = {
       return true
     },
     jwt({ token, trigger, session, account, user }) {
-      console.log('jwt', token, user)
+      // console.log('jwt', token, user)
 
       if (user) {
         token.sub = user.id;
@@ -77,7 +82,7 @@ const config = {
       return token;
     },
     async session({ session, token }) {
-      console.log('session', session, token)
+      // console.log('session', session, token)
 
       if (token) {
         session.userId = token.sub ?? "";

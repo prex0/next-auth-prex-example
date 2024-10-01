@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react"
 import { AuthStatus, EmbeddedWallet} from "@prex0/uikit/wallet"
 import { Address } from "@prex0/uikit/identity"
 import { PrexUIKitProvider, usePrex} from "@prex0/uikit"
-import { getCsrfToken } from "next-auth/react"
+import { getCsrfToken, getSession } from "next-auth/react"
 import "@prex0/uikit/styles.css"
 
 async function generateOptions() {
@@ -22,7 +22,6 @@ async function generateOptions() {
   }
 }
 
-
 export default function Page() {
   return (<PrexUIKitProvider
     chainId={421614}
@@ -34,6 +33,7 @@ export default function Page() {
 
 function WalletPage() {
   const [data, setData] = useState()
+  const [email, setEmail] = useState("")
   const { authenticate } = usePrex()
 
   const getIDToken = useCallback(async () => {
@@ -77,6 +77,11 @@ function WalletPage() {
 
   useEffect(() => {
     ;(async () => {
+      const session = await getSession()
+      console.log(session)
+      if(session) {
+        setEmail(session.user?.email ?? "")
+      }
       const res = await fetch("/api/protected")
       const json = await res.json()
       setData(json)
@@ -113,8 +118,7 @@ function WalletPage() {
               <button onClick={getIDToken}>Get ID Token</button>
             </div>
           }>
-          aaa
-          <EmbeddedWallet title="Embedded Wallet">
+          <EmbeddedWallet title="Embedded Wallet" username={email}>
             <Address />
           </EmbeddedWallet>
         </AuthStatus>
