@@ -11,7 +11,7 @@ export const POST = async (req: NextRequest) => {
   return Response.json(options)
 }
 
-export class PrexBackendApi {
+class PrexBackendApi {
   private readonly endpoint: string;
   private readonly policyId: string;
 
