@@ -12,8 +12,8 @@ importers:
         specifier: ^2.0.0
         version: 2.5.3(@simplewebauthn/server@9.0.3)(nodemailer@6.9.15)(unstorage@1.12.0(@vercel/kv@1.0.1)(idb-keyval@6.2.1))
       '@prex0/uikit':
-        specifier: ^0.1.5
-        version: 0.1.5(@tanstack/react-query@5.56.2(react@18.3.1))(@types/react-dom@18.3.0)(@types/react@18.3.10)(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2)(utf-8-validate@5.0.10)(viem@2.21.16(bufferutil@4.0.8)(typescript@5.6.2)(utf-8-validate@5.0.10))(wagmi@2.12.16(@tanstack/query-core@5.56.2)(@tanstack/react-query@5.56.2(react@18.3.1))(@types/react@18.3.10)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react-native@0.75.3(@babel/core@7.25.2)(@babel/preset-env@7.25.4(@babel/core@7.25.2))(@types/react@18.3.10)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.6.2)(utf-8-validate@5.0.10))(react@18.3.1)(typescript@5.6.2)(utf-8-validate@5.0.10)(viem@2.21.16(bufferutil@4.0.8)(typescript@5.6.2)(utf-8-validate@5.0.10)))
+        specifier: ^0.1.6
+        version: 0.1.6(@tanstack/react-query@5.56.2(react@18.3.1))(@types/react-dom@18.3.0)(@types/react@18.3.10)(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2)(utf-8-validate@5.0.10)(viem@2.21.16(bufferutil@4.0.8)(typescript@5.6.2)(utf-8-validate@5.0.10))(wagmi@2.12.16(@tanstack/query-core@5.56.2)(@tanstack/react-query@5.56.2(react@18.3.1))(@types/react@18.3.10)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react-native@0.75.3(@babel/core@7.25.2)(@babel/preset-env@7.25.4(@babel/core@7.25.2))(@types/react@18.3.10)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.6.2)(utf-8-validate@5.0.10))(react@18.3.1)(typescript@5.6.2)(utf-8-validate@5.0.10)(viem@2.21.16(bufferutil@4.0.8)(typescript@5.6.2)(utf-8-validate@5.0.10)))
       '@radix-ui/react-avatar':
         specifier: ^1.0.3
         version: 1.1.0(@types/react-dom@18.3.0)(@types/react@18.3.10)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1341,11 +1341,11 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
-  '@prex0/prex-client@0.4.10':
-    resolution: {integrity: sha512-5lLq1qRxQckn3haPcWaczCHOVuvB2djdbKDen75uooxKllnrM5I3vxRLTxo6S3/eJRaV0fO1N4NyFF9TiYsk+g==}
+  '@prex0/prex-client@0.4.11':
+    resolution: {integrity: sha512-IVFNKfRgrrNIHqRZt7MmHnUzaC3zh+4bwY51qSLxKFEvQmygR2jo5W1k4FOcb53mpSZL7JuMWsIA+ayJO1zV+g==}
 
-  '@prex0/prex-react@0.4.12':
-    resolution: {integrity: sha512-hGa4PNHnD0pJoNk4nUOFS/prBRlBz2V8rL6fyWPFwO4OdVr5R9xRCQB4Dh+CS9irr1JkOcMq/YOjygWjtHyS5A==}
+  '@prex0/prex-react@0.4.13':
+    resolution: {integrity: sha512-4BAWqbtti32oOBlH1mdRDHBEuCQB5yNhreULa1wKCVvtG6z9Sv7Q5k+WYf1m0SV+HkSxFTbXw5RJ31PLH1e6DQ==}
     peerDependencies:
       react: ^16.11.0 || ^17 || ^18
       react-dom: ^16.11.0 || ^17 || ^18
@@ -1356,8 +1356,8 @@ packages:
   '@prex0/prex-webauthn@0.3.10':
     resolution: {integrity: sha512-SxQYXuR4s578MD/VgTVZJReaZbiKPy6gQyuXO20qO5eqD3IptXunnPLLVrs30U6T6g14sZBv1v5uXvllMCuQNw==}
 
-  '@prex0/uikit@0.1.5':
-    resolution: {integrity: sha512-fr/J7Bfs+c0h5N/r2i3acSjs3CNbe55TS355T9UIhKMHtczeYCNjhFMWy3q+uQfznjs9OIkToZKX8n82vTclDg==}
+  '@prex0/uikit@0.1.6':
+    resolution: {integrity: sha512-C7BosZKwx/yFQkHfPP6y1smYB/caS+cfxaaz1QzRJua8dM6z5oQTqbq5Z2lzx78o3cgTLWgjDh+bDxg+HREQHw==}
     peerDependencies:
       '@tanstack/react-query': ^5
       react: ^16.11.0 || ^17 || ^18
@@ -6717,7 +6717,7 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@prex0/prex-client@0.4.10(bufferutil@4.0.8)(typescript@5.6.2)(utf-8-validate@5.0.10)':
+  '@prex0/prex-client@0.4.11(bufferutil@4.0.8)(typescript@5.6.2)(utf-8-validate@5.0.10)':
     dependencies:
       '@coinbase/wallet-sdk': 4.1.0
       '@prex0/prex-structs': 0.3.15(bufferutil@4.0.8)(typescript@5.6.2)(utf-8-validate@5.0.10)
@@ -6735,9 +6735,9 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@prex0/prex-react@0.4.12(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2)(utf-8-validate@5.0.10)':
+  '@prex0/prex-react@0.4.13(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2)(utf-8-validate@5.0.10)':
     dependencies:
-      '@prex0/prex-client': 0.4.10(bufferutil@4.0.8)(typescript@5.6.2)(utf-8-validate@5.0.10)
+      '@prex0/prex-client': 0.4.11(bufferutil@4.0.8)(typescript@5.6.2)(utf-8-validate@5.0.10)
       '@prex0/prex-structs': 0.3.15(bufferutil@4.0.8)(typescript@5.6.2)(utf-8-validate@5.0.10)
       '@simplewebauthn/browser': 10.0.0
       base64url: 3.0.1
@@ -6780,9 +6780,9 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@prex0/uikit@0.1.5(@tanstack/react-query@5.56.2(react@18.3.1))(@types/react-dom@18.3.0)(@types/react@18.3.10)(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2)(utf-8-validate@5.0.10)(viem@2.21.16(bufferutil@4.0.8)(typescript@5.6.2)(utf-8-validate@5.0.10))(wagmi@2.12.16(@tanstack/query-core@5.56.2)(@tanstack/react-query@5.56.2(react@18.3.1))(@types/react@18.3.10)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react-native@0.75.3(@babel/core@7.25.2)(@babel/preset-env@7.25.4(@babel/core@7.25.2))(@types/react@18.3.10)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.6.2)(utf-8-validate@5.0.10))(react@18.3.1)(typescript@5.6.2)(utf-8-validate@5.0.10)(viem@2.21.16(bufferutil@4.0.8)(typescript@5.6.2)(utf-8-validate@5.0.10)))':
+  '@prex0/uikit@0.1.6(@tanstack/react-query@5.56.2(react@18.3.1))(@types/react-dom@18.3.0)(@types/react@18.3.10)(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2)(utf-8-validate@5.0.10)(viem@2.21.16(bufferutil@4.0.8)(typescript@5.6.2)(utf-8-validate@5.0.10))(wagmi@2.12.16(@tanstack/query-core@5.56.2)(@tanstack/react-query@5.56.2(react@18.3.1))(@types/react@18.3.10)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react-native@0.75.3(@babel/core@7.25.2)(@babel/preset-env@7.25.4(@babel/core@7.25.2))(@types/react@18.3.10)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.6.2)(utf-8-validate@5.0.10))(react@18.3.1)(typescript@5.6.2)(utf-8-validate@5.0.10)(viem@2.21.16(bufferutil@4.0.8)(typescript@5.6.2)(utf-8-validate@5.0.10)))':
     dependencies:
-      '@prex0/prex-react': 0.4.12(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2)(utf-8-validate@5.0.10)
+      '@prex0/prex-react': 0.4.13(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2)(utf-8-validate@5.0.10)
       '@radix-ui/react-dropdown-menu': 2.1.1(@types/react-dom@18.3.0)(@types/react@18.3.10)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-label': 2.1.0(@types/react-dom@18.3.0)(@types/react@18.3.10)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-radio-group': 1.2.0(@types/react-dom@18.3.0)(@types/react@18.3.10)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
