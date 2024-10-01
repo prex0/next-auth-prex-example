@@ -1,9 +1,80 @@
 "use client"
 import CustomLink from "@/components/custom-link"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
+import { AuthStatus, EmbeddedWallet} from "@prex0/uikit/wallet"
+import { Address } from "@prex0/uikit/identity"
+import { PrexUIKitProvider, usePrex} from "@prex0/uikit"
+import { getCsrfToken } from "next-auth/react"
+import "@prex0/uikit/styles.css"
+
+async function generateOptions() {
+  const response = await fetch("/api/options", {
+    method: "POST",
+  });
+
+  const json = await response.json()
+
+  console.log(json);
+
+  return json as {
+    auth_session_id: string
+    options: any
+  }
+}
+
 
 export default function Page() {
+  return (<PrexUIKitProvider
+    chainId={421614}
+    policyId="8873b874-55e5-44c5-b91d-ec257dbd0173"
+  >
+    <WalletPage />
+  </PrexUIKitProvider>)
+}
+
+function WalletPage() {
   const [data, setData] = useState()
+  const { authenticate } = usePrex()
+
+  const getIDToken = useCallback(async () => {
+    const response = await fetch("/api/token", {
+      method: "GET",
+    });
+
+    const json = await response.json()
+
+    return json.data as string
+  }, [])
+  
+
+  const authByPrex = useCallback(async () => {
+    const csrfToken = await getCsrfToken()
+    const {auth_session_id, options} = await generateOptions();
+    const response = await authenticate(options)
+    const authResponse = await fetch("/api/auth/callback/credentials", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        password: JSON.stringify({
+          auth_session_id,
+          response,
+          user_handle: response.response.userHandle
+        }),
+        csrfToken,
+        callbackUrl: "/",
+        json: 'true',
+      }),
+
+    });
+
+    const json = await authResponse.json()
+
+    console.log(json);
+
+  }, [getCsrfToken, authenticate])
+
   useEffect(() => {
     ;(async () => {
       const res = await fetch("/api/protected")
@@ -11,6 +82,7 @@ export default function Page() {
       setData(json)
     })()
   }, [])
+
   return (
     <div className="flex flex-col gap-6">
       <h1 className="text-3xl font-bold">Route Handler Usage</h1>
@@ -33,6 +105,21 @@ export default function Page() {
           {JSON.stringify(data, null, 2)}
         </pre>
       </div>
+
+        <AuthStatus
+          getIDTokenHandler={getIDToken}
+          loginComponent={
+            <div>
+              <button onClick={getIDToken}>Get ID Token</button>
+            </div>
+          }>
+          aaa
+          <EmbeddedWallet title="Embedded Wallet">
+            <Address />
+          </EmbeddedWallet>
+        </AuthStatus>
+        <button onClick={authByPrex}>Auth by Prex</button>
+
     </div>
   )
 }

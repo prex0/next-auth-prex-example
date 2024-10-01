@@ -1,7 +1,7 @@
 import NextAuth from "next-auth"
 import "next-auth/jwt"
-
 import Resend from "next-auth/providers/resend"
+import Credentials from "next-auth/providers/credentials"
 import { createStorage } from "unstorage"
 import memoryDriver from "unstorage/drivers/memory"
 import vercelKVDriver from "unstorage/drivers/vercel-kv"
@@ -24,9 +24,43 @@ const config = {
   providers: [
     Resend({
       from: process.env.EMAIL_FROM
-    })
+    }),
+    Credentials({
+      name: "Credentials",
+      credentials: {
+        username: { label: "Username", type: "text" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials, req) {
+        const res = await fetch("https://api-v0.prex0.com/functions/v1/auth/verify", {
+          method: 'POST',
+          body: credentials.password as string,
+          headers: {
+            "x-rule": process.env.POLICY_ID ?? "",
+            "Content-Type": "application/json",
+
+          }
+        })
+
+        const result = (await res.json()) as {
+          verified: boolean;
+          wallet: {
+            id: number;
+            sub: string;
+          };
+        };
+
+        if (!result.verified) {
+          return null;
+        }
+
+        return {
+          id: result.wallet.sub,
+        }
+      }
+    }),
   ],
-  basePath: "/auth",
+  basePath: "/api/auth",
   callbacks: {
     authorized({ request, auth }) {
       const { pathname } = request.nextUrl
@@ -63,6 +97,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth(config)
 declare module "next-auth" {
   interface Session {
     accessToken?: string
+    userId?: string
   }
 }
 
