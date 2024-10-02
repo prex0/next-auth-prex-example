@@ -35,10 +35,8 @@ export class PrexBackendApi {
    */
   async verify(params: string) {
     const res = await this._post("/auth/verify", params)
-
-    const json = await res.json()
     
-    return json as {
+    return res as {
       verified: boolean;
       wallet: {
         id: number;
