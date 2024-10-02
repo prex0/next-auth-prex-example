@@ -19,8 +19,11 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4.0.0
+
       - name: Install
-        run: npm ci
+        run: pnpm ci
 
       - name: Build
         run: npm run build
