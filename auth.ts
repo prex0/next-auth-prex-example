@@ -12,8 +12,8 @@ import { PrexBackendApi } from "./lib/prex-api"
 const storage = createStorage({
   driver: process.env.VERCEL
     ? vercelKVDriver({
-        url: process.env.AUTH_KV_REST_API_URL,
-        token: process.env.AUTH_KV_REST_API_TOKEN,
+        url: process.env.KV_REST_API_URL,
+        token: process.env.KV_REST_API_TOKEN,
         env: false,
       })
     : memoryDriver(),
