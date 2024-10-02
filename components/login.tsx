@@ -20,11 +20,9 @@ export function LoginComponent({error}: {error?: Error}) {
     
     try {
       const csrfToken = await getCsrfToken()
-
-      const authResponse = await authWithOtp(email, csrfToken)
+      
+      await authWithOtp(email, csrfToken)
   
-      console.log(authResponse);
-
       router.push("/success")
     } catch (error) {
       console.error(error)
@@ -39,9 +37,9 @@ export function LoginComponent({error}: {error?: Error}) {
       const csrfToken = await getCsrfToken()
       const {auth_session_id, options} = await generateOptions();
       const response = await authenticate(options)
-      const authResponse = await authWithPasskey(auth_session_id, response, csrfToken)
+      await authWithPasskey(auth_session_id, response, csrfToken)
 
-      console.log(authResponse);
+      location.reload()
     } catch (error) {
       console.error(error)
     } finally {

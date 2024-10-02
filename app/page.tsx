@@ -2,11 +2,12 @@
 import { useCallback, useEffect, useState } from "react"
 import { AuthStatus, EmbeddedWallet, LogoutWalletButton} from "@prex0/uikit/wallet"
 import { Address } from "@prex0/uikit/identity"
-import { PrexUIKitProvider } from "@prex0/uikit"
+import { PrexUIKitProvider, UILabel1, UILabel2 } from "@prex0/uikit"
 import { getSession } from "next-auth/react"
 import { CHAIN_ID, POLICY_ID } from "@/lib/constants"
 import { LoginComponent } from "@/components/login"
 import "@prex0/uikit/styles.css"
+import { SignOut } from "../components/signout"
 
 export default function Page() {
   return (<PrexUIKitProvider
@@ -48,9 +49,16 @@ function WalletPage() {
           <LoginComponent />
         }>
         <EmbeddedWallet title="Embedded Wallet" username={email}>
-          <div>
-          <Address />
-            <LogoutWalletButton buttonText="Logout" />
+          <div className="flex justify-center items-center">
+            <div className="p-4 max-w-xl min-w-80 space-y-4">
+              <UILabel1>You are signed in</UILabel1>
+              <div className="flex">
+              <UILabel2>Address: </UILabel2>
+              <Address isSliced/>
+
+              </div>
+              <SignOut />
+            </div>
           </div>
         </EmbeddedWallet>
       </AuthStatus>
