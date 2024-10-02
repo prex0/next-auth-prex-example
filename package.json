@@ -1,15 +1,16 @@
 {
   "private": true,
-  "description": "An example project for NextAuth.js with Next.js",
-  "repository": "https://github.com/nextauthjs/next-auth-example.git",
+  "description": "An example project for NextAuth.js and Prex",
+  "repository": "https://github.com/prex0/next-auth-prex-example.git",
   "bugs": {
-    "url": "https://github.com/nextauthjs/next-auth/issues"
+    "url": "https://github.com/prex0/next-auth-prex-example/issues"
   },
   "homepage": "https://next-auth-example.vercel.app",
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "vitest"
   },
   "author": "Iain Collins <me@iaincollins.com>",
   "contributors": [
@@ -42,13 +43,18 @@
     "unstorage": "^1.10.1"
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.0.1",
     "@types/node": "^20.12.8",
     "@types/react": "^18.2.23",
     "@types/react-dom": "^18.2.8",
+    "@vitejs/plugin-react": "^4.3.2",
     "autoprefixer": "^10.4.15",
+    "jsdom": "^25.0.1",
     "postcss": "^8.4.29",
     "tailwindcss": "^3.3.3",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "vitest": "^2.1.1"
   },
   "engines": {
     "node": ">=20.0.0"

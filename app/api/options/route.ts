@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 
-const POLICY_ID = '8873b874-55e5-44c5-b91d-ec257dbd0173';
+const POLICY_ID = process.env.NEXT_PUBLIC_POLICY_ID || '';
 const PREX_ENDPOINT = "https://api-v0.prex0.com/functions/v1";
 
 export const POST = async (req: NextRequest) => {

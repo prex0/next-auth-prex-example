@@ -8,6 +8,8 @@ import vercelKVDriver from "unstorage/drivers/vercel-kv"
 import { UnstorageAdapter } from "@auth/unstorage-adapter"
 import type { NextAuthConfig } from "next-auth"
 
+const PREX_ENDPOINT = "https://api-v0.prex0.com/functions/v1"
+
 const storage = createStorage({
   driver: process.env.VERCEL
     ? vercelKVDriver({
@@ -34,11 +36,11 @@ const config = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const res = await fetch("https://api-v0.prex0.com/functions/v1/auth/verify", {
+        const res = await fetch(PREX_ENDPOINT + "/auth/verify", {
           method: 'POST',
           body: credentials.password as string,
           headers: {
-            "x-rule": process.env.POLICY_ID ?? "",
+            "x-rule": process.env.NEXT_PUBLIC_POLICY_ID ?? "",
             "Content-Type": "application/json",
           }
         })
@@ -73,8 +75,6 @@ const config = {
       return true
     },
     jwt({ token, trigger, session, account, user }) {
-      // console.log('jwt', token, user)
-
       if (user) {
         token.sub = user.id;
       }
@@ -82,8 +82,6 @@ const config = {
       return token;
     },
     async session({ session, token }) {
-      // console.log('session', session, token)
-
       if (token) {
         session.userId = token.sub ?? "";
       }
