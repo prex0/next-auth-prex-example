@@ -21,9 +21,11 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4.0.0
+        with:
+          version: 9
 
       - name: Install
-        run: pnpm ci
+        run: pnpm install
 
       - name: Build
         run: npm run build
