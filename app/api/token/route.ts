@@ -1,17 +1,12 @@
 import { auth } from "auth"
-import { importJWK, JWK, SignJWT } from "jose";
+import { importJWK, SignJWT } from "jose";
 
-const POLICY_ID = '8873b874-55e5-44c5-b91d-ec257dbd0173';
+const POLICY_ID = process.env.NEXT_PUBLIC_POLICY_ID || "";
 
-const PRIV_KEY = process.env.PRIV_KEY;
+const PRIV_KEY_STRING = process.env.PRIV_KEY || "{}"
 
-const PRIVATE_KEY_FOR_JWT_WITH_PREX = {
-  "kty": "EC",
-  "crv": "P-256",
-  "x": "FPk7a1CJvVW5Zr76g5cPRwUSItTxBTf_eybEso8rG14",
-  "y": "sQLMLUF9ITldprrQKVY58qoQorScUukyYXpYfdsKEGA",
-  "d": PRIV_KEY,
-};
+const PRIVATE_KEY_FOR_JWT_WITH_PREX = JSON.parse(PRIV_KEY_STRING);
+
 
 async function generateIdTokenForUser(userId: string) {
   const privateKey = await importJWK(PRIVATE_KEY_FOR_JWT_WITH_PREX, "ES256");

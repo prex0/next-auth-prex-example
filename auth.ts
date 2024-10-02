@@ -7,8 +7,7 @@ import memoryDriver from "unstorage/drivers/memory"
 import vercelKVDriver from "unstorage/drivers/vercel-kv"
 import { UnstorageAdapter } from "@auth/unstorage-adapter"
 import type { NextAuthConfig } from "next-auth"
-
-const PREX_ENDPOINT = "https://api-v0.prex0.com/functions/v1"
+import { PrexBackendApi } from "./lib/prex-api"
 
 const storage = createStorage({
   driver: process.env.VERCEL
@@ -36,22 +35,9 @@ const config = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const res = await fetch(PREX_ENDPOINT + "/auth/verify", {
-          method: 'POST',
-          body: credentials.password as string,
-          headers: {
-            "x-rule": process.env.NEXT_PUBLIC_POLICY_ID ?? "",
-            "Content-Type": "application/json",
-          }
-        })
+        const prexApi = new PrexBackendApi(process.env.NEXT_PUBLIC_POLICY_ID ?? "")
 
-        const result = (await res.json()) as {
-          verified: boolean;
-          wallet: {
-            id: number;
-            sub: string;
-          };
-        };
+        const result = await prexApi.verify(credentials.password as string)
 
         if (!result.verified) {
           return null;
