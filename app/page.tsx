@@ -4,14 +4,14 @@ import { AuthStatus, EmbeddedWallet} from "@prex0/uikit/wallet"
 import { Address } from "@prex0/uikit/identity"
 import { PrexUIKitProvider, UILabel1, UILabel2 } from "@prex0/uikit"
 import { getSession } from "next-auth/react"
-import { CHAIN_ID, POLICY_ID } from "@/lib/constants"
+import { POLICY_ID } from "@/lib/constants"
 import { LoginComponent } from "@/components/login"
 import "@prex0/uikit/styles.css"
 import { SignOut } from "../components/signout"
 
 export default function Page() {
   return (<PrexUIKitProvider
-    chainId={CHAIN_ID}
+    chainId={421614}
     policyId={POLICY_ID}
   >
     <WalletPage />
