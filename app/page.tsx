@@ -1,6 +1,6 @@
 "use client"
 import { useCallback, useEffect, useState } from "react"
-import { AuthStatus, EmbeddedWallet, LogoutWalletButton} from "@prex0/uikit/wallet"
+import { AuthStatus, EmbeddedWallet} from "@prex0/uikit/wallet"
 import { Address } from "@prex0/uikit/identity"
 import { PrexUIKitProvider, UILabel1, UILabel2 } from "@prex0/uikit"
 import { getSession } from "next-auth/react"
